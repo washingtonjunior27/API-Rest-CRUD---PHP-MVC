@@ -15,7 +15,7 @@ $map = [
     "login" => App\Controllers\AuthController::class,
     "register" => App\Controllers\AuthController::class,
     "logout" => App\Controllers\AuthController::class,
-    "home" => App\Controllers\AuthController::class
+    "home" => App\Controllers\AppController::class
 ];
 
 $prefix = $parts[0];
@@ -27,7 +27,7 @@ if (isset($parts[1]) && !empty($parts[1])) {
     // Se a URL NÃO tem nada depois da barra (ex: /home ou /login)
 
     // Lista de rotas que chamam funções com o próprio nome em vez de 'index'
-    $rotasEspeciais = ['home', 'register', 'logout'];
+    $rotasEspeciais = ['register', 'logout'];
 
     if (in_array($prefix, $rotasEspeciais)) {
         $method = $prefix; // Se a URL for /home, vai procurar function home()
