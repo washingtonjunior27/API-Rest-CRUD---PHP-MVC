@@ -13,16 +13,18 @@ class Connection
     private $pass = '';
     private static $instance;
 
-    public function Connect()
+    public function getConn()
     {
         if (!isset(self::$instance)) {
             try {
-                self::$instance =
-                    new PDO('mysql: host=' . $this->host . ';dbname=' . $this->db .
-                        ';charset=utf8', $this->user, $this->pass);
+                self::$instance = new PDO(
+                    'mysql: host=' . $this->host . ';dbname=' . $this->db . ';charset=utf8',
+                    $this->user,
+                    $this->pass
+                );
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                die('Erro de conexão - ' . $e->getMessage());
+            } catch (PDOException $th) {
+                die('Erro de conexão' . $th->getMessage());
             }
         }
 
