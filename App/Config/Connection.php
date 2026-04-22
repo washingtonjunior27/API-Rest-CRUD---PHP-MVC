@@ -7,7 +7,7 @@ use PDOException;
 
 class Connection
 {
-    private $db = 'api';
+    private $db = 'api_rest_crud';
     private $host = 'localhost';
     private $user = 'root';
     private $pass = '';
