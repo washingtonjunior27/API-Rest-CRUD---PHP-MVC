@@ -27,7 +27,7 @@ if (isset($parts[1]) && !empty($parts[1])) {
     // Se a URL NÃO tem nada depois da barra (ex: /home ou /login)
 
     // Lista de rotas que chamam funções com o próprio nome em vez de 'index'
-    $rotasEspeciais = ['home', 'novaSenha', 'logout'];
+    $rotasEspeciais = ['home', 'register', 'logout'];
 
     if (in_array($prefix, $rotasEspeciais)) {
         $method = $prefix; // Se a URL for /home, vai procurar function home()

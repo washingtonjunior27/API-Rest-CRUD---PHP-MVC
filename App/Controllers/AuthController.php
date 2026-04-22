@@ -4,9 +4,24 @@ namespace App\Controllers;
 
 class AuthController
 {
-    public function login() {}
+    public function index()
+    {
+        // if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        //     $this->LoginController();
+        //     return;
+        // }
 
-    public function register() {}
+        require __DIR__ . "/../Views/Layouts/header.php";
+        require __DIR__ . "/../Views/Auth/login.php";
+        require __DIR__ . "/../Views/Layouts/footer.php";
+    }
+
+    public function register()
+    {
+        require __DIR__ . "/../Views/Layouts/header.php";
+        require __DIR__ . "/../Views/Auth/register.php";
+        require __DIR__ . "/../Views/Layouts/footer.php";
+    }
 
     public function logout()
     {
