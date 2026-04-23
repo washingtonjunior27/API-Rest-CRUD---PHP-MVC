@@ -5,7 +5,7 @@
             <button class="btn btn-success" type="submit">Search</button>
         </form>
 
-        <a class="btn btn-primary mb-3" type="button">New Product</a>
+        <a href="<?= BASE_URL ?>/product" class="btn btn-primary mb-3" type="button">New Product</a>
 
         <div class="table-responsive">
             <table class="table table-hover align-middle">

@@ -14,31 +14,24 @@ $parts = explode("/", $route);
 $map = [
     "login" => App\Controllers\AuthController::class,
     "register" => App\Controllers\AuthController::class,
+    "api-user" => App\Controllers\Api\UserApiController::class,
     "logout" => App\Controllers\AuthController::class,
-    "home" => App\Controllers\AppController::class
+    "home" => App\Controllers\AppController::class,
+    "profile" => App\Controllers\AppController::class,
+    "product" => App\Controllers\AppController::class
 ];
 
 $prefix = $parts[0];
 
-if (isset($parts[1]) && !empty($parts[1])) {
-    // Se a URL tem algo depois da barra (ex: /funcionarios/CriarFuncionario)
-    $method = $parts[1];
-} else {
-    // Se a URL NÃO tem nada depois da barra (ex: /home ou /login)
-
-    // Lista de rotas que chamam funções com o próprio nome em vez de 'index'
-    $rotasEspeciais = ['register', 'logout'];
-
-    if (in_array($prefix, $rotasEspeciais)) {
-        $method = $prefix; // Se a URL for /home, vai procurar function home()
-    } else {
-        $method = 'index'; // Para /login ou /funcionarios, vai procurar function index()
-    }
-}
-
 if (isset($map[$prefix])) {
     $classe = $map[$prefix];
     $controller = new $classe;
+
+    if (isset($parts[1]) && !empty($parts[1])) {
+        $method = $parts[1];
+    } else {
+        $method = method_exists($controller, $prefix) ? $prefix : 'index';
+    }
 
     if (method_exists($controller, $method)) {
         $controller->$method();
