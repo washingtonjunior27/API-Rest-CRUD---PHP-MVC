@@ -12,7 +12,7 @@ document.getElementById('registerUserForm').addEventListener('submit', async (e)
     const result = await response.json();
 
     if(result.success){
-        window.location.href = 'home';
+        window.location.href = 'login';
     }else{
         const alertHtml = `
         <div class="alert alert-danger alert-dismissible fade show" role="alert">

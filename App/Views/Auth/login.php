@@ -1,7 +1,17 @@
 <div class="container-fluid bg-dark vh-100 d-flex justify-content-center align-items-center">
     <div class="d-flex flex-column justify-content-center align-items-center bg-light p-4 rounded-2 w-100" style="max-width: 450px;">
         <h3 class="mb-4">Login</h3>
-        <form class="w-100" method="POST">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                <?= $_SESSION['success'];
+                unset($_SESSION['success']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <div id="alert-container-login-user" class="w-100">
+
+        </div>
+        <form class="w-100" id="loginUserForm">
             <div class="mb-3 ">
                 <label for="user_login" class="form-label">Username</label>
                 <input type="text" name="user-login" class="form-control" placeholder="User login">

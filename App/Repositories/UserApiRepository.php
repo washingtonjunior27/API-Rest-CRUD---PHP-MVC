@@ -31,4 +31,14 @@ class UserApiRepository
             ':password' => $user->getPassword_user()
         ]);
     }
+
+    public function findLogin($login_user)
+    {
+        $sql = 'SELECT * FROM user WHERE login_user = :login_user';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':login_user' => $login_user
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

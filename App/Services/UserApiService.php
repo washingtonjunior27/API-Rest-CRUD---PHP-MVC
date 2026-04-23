@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserApiRepository;
+use Exception;
 
 class UserApiService
 {
@@ -19,14 +20,24 @@ class UserApiService
     public function handleRegistration($data)
     {
         if (
-            !$data['user-name'] || !$data['user-email'] ||
-            !$data['user-phone'] || !$data['user-login'] || !$data['user-pass']
+            empty($data['user-name']) || empty($data['user-email']) ||
+            empty($data['user-phone']) || empty($data['user-login']) || empty($data['user-pass'])
         ) {
             throw new \Exception('Preencha os campos vazios!');
         }
 
         if ($data['user-pass'] !== $data['user-pass-confirm']) {
             throw new \Exception('Senhas não conferem!');
+        }
+
+        if (strlen($data['user-pass']) < 6) {
+            throw new \Exception('Senha deve ter mais que 6 caracteres!');
+        }
+
+        $login = $this->userApiRepository->findLogin($data['user-login']);
+
+        if ($login) {
+            throw new \Exception('Login não disponivel!');
         }
 
         $this->user->setName_user(trim($data['user-name'] ?? ""));
@@ -44,5 +55,27 @@ class UserApiService
         $this->user->setPassword_user($password_hash);
 
         return $this->userApiRepository->createRepository($this->user);
+    }
+
+    public function handleLogin($data)
+    {
+        if (empty($data['user-login']) || empty($data['user-pass'])) {
+            throw new \Exception('Preencha os campos vazios!');
+        }
+
+        $login = $this->userApiRepository->findLogin($data['user-login']);
+
+        if (!$login) {
+            throw new \Exception('Login não encontrado!');
+        }
+
+        if (!password_verify($data['user-pass'], $login['password_user'])) {
+            throw new \Exception('Senha incorreta!');
+        }
+
+        $_SESSION['user_id'] = $login['id_user'];
+        $_SESSION['user_login'] = $login['login_user'];
+
+        return true;
     }
 }

@@ -6,6 +6,10 @@ class AppController
 {
     public function index()
     {
+        if (!isset($_SESSION['user_id'])) {
+            header('location: ' . BASE_URL . '/login');
+            exit;
+        }
         require __DIR__ . "/../Views/Layouts/header.php";
         require __DIR__ . "/../Views/Layouts/navbar.php";
         require __DIR__ . "/../Views/App/home.php";

@@ -15,7 +15,7 @@
             </div>
             <div class="mb-3 ">
                 <label for="user_phone" class="form-label">Phone</label>
-                <input type="text" name="user-phone" class="form-control" placeholder="User phone">
+                <input type="number" name="user-phone" class="form-control" placeholder="User phone" min="0">
             </div>
             <div class="mb-3 ">
                 <label for="user_login" class="form-label">Username</label>
