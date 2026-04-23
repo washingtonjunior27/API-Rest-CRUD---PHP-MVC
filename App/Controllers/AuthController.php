@@ -6,11 +6,6 @@ class AuthController
 {
     public function index()
     {
-        // if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        //     $this->LoginController();
-        //     return;
-        // }
-
         require __DIR__ . "/../Views/Layouts/header.php";
         require __DIR__ . "/../Views/Auth/login.php";
         require __DIR__ . "/../Views/Layouts/footer.php";
@@ -29,6 +24,4 @@ class AuthController
         session_destroy();
         header('location:' . BASE_URL . '/login');
     }
-
-    public function home() {}
 }

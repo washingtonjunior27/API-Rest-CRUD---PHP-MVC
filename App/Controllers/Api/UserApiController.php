@@ -2,40 +2,34 @@
 
 namespace App\Controllers\Api;
 
-use App\Services\UserApiService;
+use App\Models\User;
+use App\Repositories\UserApiRepository;
 
 class UserApiController
 {
-
-    private $userApiService;
+    private $user;
+    private $userApiRepository;
 
     public function __construct()
     {
-        $this->userApiService = new UserApiService;
+        $this->user = new User;
+        $this->userApiRepository = new UserApiRepository;
     }
 
-    public function create()
-    {
-        header('Content-type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        try {
-            $this->userApiService->handleRegistration($data);
-            $_SESSION['success'] = "Cadastrado com sucesso!";
-            echo json_encode(['success' => true]);
-        } catch (\Exception $e) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
-
-    public function login()
+    public function delete()
     {
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
 
         try {
-            $this->userApiService->handleLogin($data);
+            $id_session = $_SESSION['user_id'];
+            $id_form = $data['id_user'];
+
+            if ($id_session != $id_form) {
+                throw new \Exception('Usuário não pode ser excluido!');
+            }
+
+            $this->userApiRepository->deleteRepository($id_session);
             echo json_encode(['success' => true]);
         } catch (\Exception $e) {
             http_response_code(400);

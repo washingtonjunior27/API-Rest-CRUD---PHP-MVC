@@ -41,4 +41,11 @@ class UserApiRepository
         ]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function deleteRepository($id_user)
+    {
+        $sql = "DELETE FROM user WHERE id_user = :id_user";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id_user' => $id_user]);
+    }
 }

@@ -9,7 +9,7 @@
                 <ul class="navbar-nav ms-auto mb-lg-0 d-flex align-items-center">
                     <li class="nav-item ">
                         <a href="<?= BASE_URL ?>/profile" class="nav-link active text-light d-flex align-items-center gap-2" aria-disabled="true">
-                            <span>Username</span>
+                            <span><?= $_SESSION['user_login'] ?></span>
                             <i class="bi bi-person-circle fs-4"></i>
                         </a>
                     </li>

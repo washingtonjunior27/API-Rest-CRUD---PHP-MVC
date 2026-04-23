@@ -14,6 +14,7 @@ $parts = explode("/", $route);
 $map = [
     "login" => App\Controllers\AuthController::class,
     "register" => App\Controllers\AuthController::class,
+    "api-auth" => App\Controllers\Api\AuthApiController::class,
     "api-user" => App\Controllers\Api\UserApiController::class,
     "logout" => App\Controllers\AuthController::class,
     "home" => App\Controllers\AppController::class,

@@ -1,9 +1,10 @@
-document.getElementById('registerUserForm').addEventListener('submit', async (e) => {
+document.getElementById('deleteUserForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
-    const response = await fetch('api-user/create', {
+    const response = await fetch('api-user/delete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -12,7 +13,7 @@ document.getElementById('registerUserForm').addEventListener('submit', async (e)
     const result = await response.json();
 
     if(result.success){
-        window.location.href = 'login';
+        window.location.href = 'logout';
     }else{
         const alertHtml = `
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -20,6 +21,6 @@ document.getElementById('registerUserForm').addEventListener('submit', async (e)
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         `;
-        document.getElementById('alert-container-register-user').innerHTML = alertHtml;
+        document.getElementById('alert-container-delete-user').innerHTML = alertHtml;
     }
 })
