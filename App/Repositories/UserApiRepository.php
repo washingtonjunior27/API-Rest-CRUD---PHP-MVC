@@ -42,6 +42,22 @@ class UserApiRepository
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function updateRepository(User $user)
+    {
+        $sql = 'UPDATE user SET name_user = :name_user, email_user = :email_user, 
+                                phone_user = :phone_user, login_user = :login_user, 
+                                password_user = :password_user WHERE id_user = :id_user';
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':name_user' => $user->getName_user(),
+            ':email_user' => $user->getEmail_user(),
+            ':phone_user' => $user->getPhone_user(),
+            ':login_user' => $user->getLogin_user(),
+            ':password_user' => $user->getPassword_user(),
+            ':id_user' => $user->getId_user()
+        ]);
+    }
+
     public function deleteRepository($id_user)
     {
         $sql = "DELETE FROM user WHERE id_user = :id_user";

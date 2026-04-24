@@ -2,18 +2,29 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\User;
-use App\Repositories\UserApiRepository;
+use App\Services\UserApiService;
 
 class UserApiController
 {
-    private $user;
-    private $userApiRepository;
+    private $userApiService;
 
     public function __construct()
     {
-        $this->user = new User;
-        $this->userApiRepository = new UserApiRepository;
+        $this->userApiService = new UserApiService;
+    }
+
+    public function update()
+    {
+        header('Content-Type: application/json');
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        try {
+            $this->userApiService->handleUpdate($data);
+            echo json_encode(['success' => true, 'message' => 'Dados atualizados! Redirecionando para a tela de login!']);
+        } catch (\Exception $e) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 
     public function delete()
@@ -22,15 +33,8 @@ class UserApiController
         $data = json_decode(file_get_contents('php://input'), true);
 
         try {
-            $id_session = $_SESSION['user_id'];
-            $id_form = $data['id_user'];
-
-            if ($id_session != $id_form) {
-                throw new \Exception('Usuário não pode ser excluido!');
-            }
-
-            $this->userApiRepository->deleteRepository($id_session);
-            echo json_encode(['success' => true]);
+            $this->userApiService->handleDelete($data);
+            echo json_encode(['success' => true, 'message' => 'Usuario excluido! Redirecionando para a tela de login!']);
         } catch (\Exception $e) {
             http_response_code(400);
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);

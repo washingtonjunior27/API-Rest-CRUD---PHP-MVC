@@ -8,7 +8,12 @@
     <div class="d-flex flex-column justify-content-center align-items-center bg-light p-4 rounded-2 w-100" style="max-width: 450px;">
         <h3 class="mb-4">Update Profile</h3>
 
-        <form class="w-100 d-flex flex-column" method="POST">
+        <div id="alert-container-update-user" class="w-100">
+
+        </div>
+
+        <form class="w-100 d-flex flex-column" id="updateUserForm">
+            <input type="hidden" name="id-user" value="<?= $user['id_user'] ?>">
             <div class="mb-3 ">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="user-name" class="form-control" placeholder="User name" value="<?= $user['name_user'] ?>">
