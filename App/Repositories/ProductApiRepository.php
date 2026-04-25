@@ -29,4 +29,46 @@ class ProductApiRepository
             ':image_product' => $product->getImage_product()
         ]);
     }
+
+    public function read($search, $limit, $offset)
+    {
+        $sql = "SELECT * FROM product 
+                WHERE id_product LIKE :search OR name_product LIKE :search 
+                OR price_product LIKE :search OR brand_product LIKE :search
+                LIMIT :limit OFFSET :offset";
+
+
+        $params = [];
+        $searchItem = '%' . $search . '%';
+        $params['search'] = $searchItem;
+
+        $stmt = $this->pdo->prepare($sql);
+
+        foreach ($params as $key => $s) {
+            $stmt->bindValue(":$key", $s);
+        }
+
+        $stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+        $stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function count($search)
+    {
+        $sql = "SELECT COUNT(*) FROM product 
+                WHERE id_product LIKE :search OR name_product LIKE :search 
+                OR price_product LIKE :search OR brand_product LIKE :search";
+
+        $params = [];
+        $searchItem = '%' . $search . '%';
+        $params['search'] = $searchItem;
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute($params);
+
+        return $stmt->fetchColumn();
+    }
 }
