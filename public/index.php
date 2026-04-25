@@ -16,6 +16,7 @@ $map = [
     "register" => App\Controllers\AuthController::class,
     "api-auth" => App\Controllers\Api\AuthApiController::class,
     "api-user" => App\Controllers\Api\UserApiController::class,
+    "api-product" => App\Controllers\Api\ProductApiController::class,
     "logout" => App\Controllers\AuthController::class,
     "home" => App\Controllers\AppController::class,
     "profile" => App\Controllers\AppController::class,
