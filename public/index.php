@@ -20,7 +20,8 @@ $map = [
     "logout" => App\Controllers\AuthController::class,
     "home" => App\Controllers\AppController::class,
     "profile" => App\Controllers\AppController::class,
-    "product" => App\Controllers\AppController::class
+    "product" => App\Controllers\AppController::class,
+    "editProduct" => App\Controllers\AppController::class
 ];
 
 $prefix = $parts[0];

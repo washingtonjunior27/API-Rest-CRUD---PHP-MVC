@@ -6,6 +6,10 @@
 
         <a href="<?= BASE_URL ?>/product" class="btn btn-primary mb-3" type="button">New Product</a>
 
+        <div id="alert-container-list-product" class="w-100 mt-3">
+
+        </div>
+
         <div class="table-responsive">
             <table class="table table-hover align-middle">
                 <thead>
@@ -19,26 +23,16 @@
                     </tr>
                 </thead>
                 <tbody id="product-itens-table">
-                    <!-- <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <img src="<?= BASE_URL ?>/Assets/img/img1.jpg" class="rounded img-product">
-                        </td>
-                        <td>PlayStation 5</td>
-                        <td>R$6000,00</td>
-                        <td>Sony</td>
-                        <td>
-                            <a href="" class="btn btn-warning">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <button class="btn btn-danger">
-                                <i class="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center" id="pagination-container">
+            </ul>
+        </nav>
     </div>
 </div>
 </div>
+
+<?php require_once __DIR__ . "/modalDeleteProduct.php" ?>

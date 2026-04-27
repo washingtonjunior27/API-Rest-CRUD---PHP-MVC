@@ -71,4 +71,34 @@ class ProductApiRepository
 
         return $stmt->fetchColumn();
     }
+
+    public function findProd($id_prod)
+    {
+        $sql = "SELECT * FROM product WHERE id_product = :id_product";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id_product' => $id_prod]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update(Product $prod)
+    {
+        $sql = "UPDATE product SET name_product = :name_product, price_product = :price_product,
+                                brand_product = :brand_product, image_product = :image_product
+                WHERE id_product = :id_product";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([
+            ':name_product' => $prod->getName_product(),
+            ':price_product' => $prod->getPrice_product(),
+            ':brand_product' => $prod->getBrand_product(),
+            ':image_product' => $prod->getImage_product(),
+            ':id_product' => $prod->getId_product()
+        ]);
+    }
+
+    public function delete($id_product)
+    {
+        $sql = "DELETE FROM product WHERE id_product = :id_product";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id_product' => $id_product]);
+    }
 }

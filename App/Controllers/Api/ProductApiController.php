@@ -25,7 +25,7 @@ class ProductApiController
 
         try {
             $this->productService->handleCreate($data, $file);
-            echo json_encode(['success' => true, 'message' => 'Producto cadastrado com sucesso!']);
+            echo json_encode(['success' => true, 'message' => 'Product successfully registered!']);
         } catch (\Exception $e) {
             http_response_code(400);
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -39,7 +39,7 @@ class ProductApiController
         $page = (int) ($_GET['page'] ?? 1);
         if ($page < 1) $page = 1;
         $search = $_GET['search'] ?? "";
-        $limit = 6;
+        $limit = 5;
         $offset = ($page - 1) * $limit;
 
         try {
@@ -50,11 +50,43 @@ class ProductApiController
                 'success' => true,
                 'products' => $read,
                 'pagination' => [
-                    'currentPage' => $page,
-                    'totalPages' => ceil($count / $limit),
-                    'totalProducts' => $count
+                    'currentPage' => (int)$page,
+                    'totalPages' => (int)ceil($count / $limit),
+                    'totalProducts' => (int)$count
                 ]
             ]);
+        } catch (\Exception $e) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function update()
+    {
+        header('Content-Type: application/json');
+
+        $data = $_POST;
+        $file = $_FILES['product-img'] ?? null;
+
+        try {
+            $this->productService->handleUpdate($data, $file);
+            echo json_encode(['success' => true, 'message' => 'Product successfully updated!']);
+        } catch (\Exception $e) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function delete()
+    {
+        header('Content-Type: application/json');
+
+        $id = $_GET['id'] ?? null;
+
+        try {
+            $this->productService->handleDelete($id);
+
+            echo json_encode(['success' => true, 'message' => 'Product successfully excluded!']);
         } catch (\Exception $e) {
             http_response_code(400);
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
