@@ -33,6 +33,12 @@ class ProductApiService
         $nameImage = md5(uniqid()) . '.' . strtolower($extension);
         $destiny = __DIR__ . "/../../public/Assets/img/" . $nameImage;
 
+        $uploadDir = __DIR__ . "/../../public/Assets/img/";
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
         if (!move_uploaded_file($file['tmp_name'], $destiny)) {
             throw new \Exception('Error saving image to server!');
         }
@@ -66,6 +72,12 @@ class ProductApiService
             $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
             $nameImage = md5(uniqid()) . '.' . strtolower($extension);
             $destiny = __DIR__ . "/../../public/Assets/img/" . $nameImage;
+
+            $uploadDir = __DIR__ . "/../../public/Assets/img/";
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
 
             if (move_uploaded_file($file['tmp_name'], $destiny)) {
                 $oldPath = __DIR__ . "/../../public/Assets/img/" . $product['image_product'];
