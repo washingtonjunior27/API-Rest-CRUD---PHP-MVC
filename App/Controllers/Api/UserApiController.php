@@ -30,10 +30,11 @@ class UserApiController
     public function delete()
     {
         header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
+
+        $id = $_GET['id_user'] ?? null;
 
         try {
-            $this->userApiService->handleDelete($data);
+            $this->userApiService->handleDelete($id);
             echo json_encode(['success' => true, 'message' => 'Usuario excluido! Redirecionando para a tela de login!']);
         } catch (\Exception $e) {
             http_response_code(400);

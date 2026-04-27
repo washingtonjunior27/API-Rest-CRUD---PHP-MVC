@@ -65,7 +65,16 @@ class ProductApiService
             throw new \Exception('Fill in the empty fields.');
         }
 
-        $product = $this->productApiRepository->findProd($data['product-id']);
+        if (!isset($_SESSION['edit_id_product']) || $_SESSION['edit_id_product'] != $data['update-product-id']) {
+            throw new \Exception("Invalid edition token!");
+        }
+
+        $product = $this->productApiRepository->findProd($data['update-product-id']);
+
+        if (!$product) {
+            throw new \Exception("Product not found!");
+        }
+
         $nameImage = $product['image_product'];
 
         if (!empty($file['name']) && $file['error'] === UPLOAD_ERR_OK) {
@@ -89,13 +98,10 @@ class ProductApiService
             }
         }
 
-        if ($_SESSION['edit_id_product'] != $data['product-id']) {
-            throw new \Exception("Invalid edition token!");
-        }
 
-        unset($_SESSION['edit_id_product']);
 
-        $this->product->setId_product($data['product-id']);
+
+        $this->product->setId_product($data['update-product-id']);
         $this->product->setName_product($data['product-name']);
 
         $preco = str_replace(',', '.', $data['product-price']);
@@ -106,7 +112,13 @@ class ProductApiService
         $this->product->setBrand_product($data['product-brand']);
         $this->product->setImage_product($nameImage);
 
-        return $this->productApiRepository->update($this->product);
+        $result = $this->productApiRepository->update($this->product);
+
+        if ($result) {
+            unset($_SESSION['edit_id_product']);
+        }
+
+        return $result;
     }
 
     public function handleDelete($id)

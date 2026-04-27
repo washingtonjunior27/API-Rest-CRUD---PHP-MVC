@@ -41,8 +41,9 @@ if(formUpdateProduct){
         e.preventDefault();
 
         const formData = new FormData(e.target);
+        const id_product = document.getElementById('update-product-id').value;
 
-        const response = await fetch('api-product/update' ,{
+        const response = await fetch(`api-product/update?id_product=${id_product}` ,{
             method: 'POST',
             body: formData
         });

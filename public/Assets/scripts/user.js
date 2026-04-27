@@ -8,8 +8,8 @@ if(updateUserForm){
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
 
-        const response = await fetch('api-user/update', {
-            method: 'POST',
+        const response = await fetch(`api-user/update?id_user=${data.id_user_update}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
@@ -44,12 +44,11 @@ if(deleteUserForm){
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
+        
+        const id = document.getElementById('id-user-profile').value;
 
-        const response = await fetch('api-user/delete', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+        const response = await fetch(`api-user/delete?id_user=${id}`, {
+            method: 'DELETE'
         });
 
         const result = await response.json();

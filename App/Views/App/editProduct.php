@@ -11,7 +11,7 @@
 
         </div>
         <form class="w-100 d-flex flex-column" id="form-update-product">
-            <input type="hidden" name="product-id" id="" value="<?= $product['id_product'] ?>">
+            <input type="hidden" name="update-product-id" id="update-product-id" value="<?= $product['id_product'] ?>">
             <div class="mb-3 ">
                 <label for="product-name" class="form-label">Name</label>
                 <input value="<?= $product['name_product'] ?>" type="text" name="product-name" class="form-control" placeholder="Product Name">

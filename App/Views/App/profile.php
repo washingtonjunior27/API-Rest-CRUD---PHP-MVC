@@ -13,7 +13,7 @@
         </div>
 
         <form class="w-100 d-flex flex-column" id="updateUserForm">
-            <input type="hidden" name="id-user" value="<?= $user['id_user'] ?>">
+            <input type="hidden" name="id_user_update" value="<?= $user['id_user'] ?>">
             <div class="mb-3 ">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="user-name" class="form-control" placeholder="User name" value="<?= $user['name_user'] ?>">
@@ -64,7 +64,7 @@
                 <p>Do you really want to delete this account? This process cannot be undone.</p>
             </div>
             <form class="modal-footer" id="deleteUserForm">
-                <input type="hidden" name="id_user" value="<?= $_SESSION['user_id'] ?>">
+                <input type="hidden" name="id_user" id="id-user-profile" value="<?= $_SESSION['user_id'] ?>">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>

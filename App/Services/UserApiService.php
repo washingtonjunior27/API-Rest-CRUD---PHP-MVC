@@ -97,7 +97,7 @@ class UserApiService
         }
 
         $id_session = $_SESSION['user_id'];
-        $id_form = $data['id-user'];
+        $id_form = $data['id_user_update'];
 
         if ($id_session != $id_form) {
             throw new \Exception('Usuário não pode ser editado!');
@@ -129,12 +129,11 @@ class UserApiService
         return true;
     }
 
-    public function handleDelete($data)
+    public function handleDelete($id)
     {
         $id_session = $_SESSION['user_id'];
-        $id_form = $data['id_user'];
 
-        if ($id_session != $id_form) {
+        if ($id_session != $id) {
             throw new \Exception('Usuário não pode ser excluido!');
         }
 
