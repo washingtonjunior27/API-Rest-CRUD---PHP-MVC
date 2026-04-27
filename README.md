@@ -73,7 +73,7 @@ Usuário | Senha
     git clone [https://github.com/seu-usuario/api-rest-products.git](https://github.com/seu-usuario/api-rest-products.git)
     ```
 2.  **Configuração do Banco de Dados:**
-    * Importe o banco de dados via phpMyAdmin (arquivo SQL incluso).
+    * Importe o banco de dados via phpMyAdmin (arquivos SQL inclusos na pasta Database).
     * Configure as credenciais em `App/Config/Connection.php`.
 3.  **Configuração de URL:**
     * No arquivo `public/index.php`, ajuste a constante `BASE_URL` para o caminho da sua pasta local (ex: `/api-rest-products`).
